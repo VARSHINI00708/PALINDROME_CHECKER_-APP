@@ -2,19 +2,20 @@ import java.util.*;
 
 public class PalindromeCheckerApp {
 
-    public static boolean isPalindrome(String str) {
-        str = str.toLowerCase();            // convert to lowercase
-        str = str.replaceAll("\\s", "");    // remove spaces using regex
+    public boolean checkPalindrome(String input) {
 
-        int left = 0;
-        int right = str.length() - 1;
+        String normalized = input.toLowerCase().replaceAll("\\s", "");
 
-        while (left < right) {
-            if (str.charAt(left) != str.charAt(right)) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < normalized.length(); i++) {
+            stack.push(normalized.charAt(i));
+        }
+
+        for (int i = 0; i < normalized.length(); i++) {
+            if (normalized.charAt(i) != stack.pop()) {
                 return false;
             }
-            left++;
-            right--;
         }
 
         return true;
@@ -26,7 +27,9 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = sc.nextLine();
 
-        if (isPalindrome(input)) {
+        PalindromeCheckerApp checker = new PalindromeCheckerApp();
+
+        if (checker.checkPalindrome(input)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
@@ -35,7 +38,6 @@ public class PalindromeCheckerApp {
         sc.close();
     }
 }
-
 
 
 
